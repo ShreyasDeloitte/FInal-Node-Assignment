@@ -1,0 +1,21 @@
+{
+  "name": "final-node-assignment",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server",
+    "dev": "npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShreyasDeloitte/FInal-Node-Assignment.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ShreyasDeloitte/FInal-Node-Assignment/issues"
+  },
+  "homepage": "https://github.com/ShreyasDeloitte/FInal-Node-Assignment#readme"
+}
