@@ -4,6 +4,8 @@ const { signUpRoute } = require("./routes/signUpRoute");
 const { loginRoute } = require("./routes/loginRoute");
 const app = express();
 const mongoose = require("mongoose");
+const { hackathonRoute } = require("./routes/hackathonRoute");
+const { employeeRoute } = require("./routes/employeeRoute");
 const PORT = process.env.PORT | 5006;
 
 mongoose
@@ -21,6 +23,8 @@ app.get("/", (req, res) => {
 
 app.use("/signup", signUpRoute);
 app.use("/login", loginRoute);
+app.use("/hackathon",hackathonRoute);
+app.use("/employee",employeeRoute);
 
 app.listen(PORT, (req, res) => {
   console.log(`Server listening to Port ${PORT}`);

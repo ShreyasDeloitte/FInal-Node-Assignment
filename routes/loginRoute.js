@@ -3,7 +3,7 @@ const loginRoute = express.Router();
 const { loginController } = require("../controller/loginController");
 const { verifyAuthentication } = require("../utilities/verifyAuthentication");
 
-loginRoute.post("/all", (req, res) => {
+loginRoute.post("/",(req, res) => {
   loginController(req, res);
 });
 
