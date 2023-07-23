@@ -7,7 +7,6 @@ const EmployeeSchema = new Schema({
   fullName: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  userRole: { type: String, required: true },
   skills: { type: Array, required: true },
   designation: { type: String, required: true },
 });
