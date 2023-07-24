@@ -1,6 +1,6 @@
 const { Company } = require("../model/companySchema");
 
-const listParticipantController = async()=>{
+const listParticipantController = async(req,res)=>{
     try {
         const companyId = req.params.companyId;
         const hackathonId = req.params.hackathonId;
@@ -35,6 +35,36 @@ const listParticipantController = async()=>{
       }
 }
 
+const deleteHackathonController = async(req,res) =>{
+    try {
+        const hackathonId = req.params.hackathonId;
+        const companyId = req.params.companyId;
+    
+        const hackathon = await HackathonEvent.findById(hackathonId);
+        const company = await Company.findById(companyId);
+    
+        if (!company) {
+          return res.status(404).json({ message: 'Company not found' });
+        }
+    
+        if (!hackathon) {
+          return res.status(404).json({ message: 'Hackathon not found' });
+        }
+    
+        const organizerId = company.id; 
+        if (hackathon.organizer.toString() !== organizerId) {
+          return res.status(403).json({ message: 'Unauthorized. You are not the organizer of this Hackathon.' });
+        }
+    
+        await hackathon.remove();
+    
+        res.status(200).json({ message: 'Hackathon successfully deleted' });
+      } catch (error) {
+        res.status(500).json({ message: 'Error deleting Hackathon', error: error.message });
+      }
+}
+
 module.exports == {
-    listParticipantController
+    listParticipantController,
+    deleteHackathonController
 }
