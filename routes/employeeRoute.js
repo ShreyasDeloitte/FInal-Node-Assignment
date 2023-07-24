@@ -1,9 +1,12 @@
 const express = require("express");
-const { registerHackathonController } = require("../controller/employeeController");
+const { registerHackathonController ,registeredHackathonController} = require("../controller/employeeController");
 const employeeRoute = express.Router();
 
 employeeRoute.post("/enroll", (req, res) => {
   registerHackathonController(req, res);
 });
 
+employeeRoute.post("/registeredhackathons/:employeeId", (req, res) => {
+  registeredHackathonController(req, res);
+});
 module.exports = { employeeRoute };

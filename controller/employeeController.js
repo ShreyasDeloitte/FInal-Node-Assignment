@@ -77,4 +77,25 @@ const registerHackathonController = async(req, res) => {
   };
 };
   
-module.exports = { registerHackathonController };
+const registeredHackathonController = async(req, res) => {
+  try {
+    const employeeId = req.params.employeeId;
+
+    const employee = await Employee.findById(employeeId);
+
+    if (!employee) {
+      return res.status(404).json({ message: 'Employee not found' });
+    }
+
+    const hackathons = await HackathonEvent.find({ participants: employee.id });
+
+    res.status(200).json({
+      employeeId: employee._id,
+      fullName: employee.fullName,
+      hackathons,
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching hackathons', error: error.message });
+  }
+}
+module.exports = { registerHackathonController, registeredHackathonController };
