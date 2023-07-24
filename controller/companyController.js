@@ -62,9 +62,34 @@ const deleteHackathonController = async(req,res) =>{
       } catch (error) {
         res.status(500).json({ message: 'Error deleting Hackathon', error: error.message });
       }
+
+}
+
+
+const listHostedEventContoller = async(req,res) =>{
+    try {
+        const organizerId = req.params.companyId;
+    
+        const organizer = await Company.findById(organizerId);
+    
+        if (!organizer) {
+          return res.status(404).json({ message: 'Organizer not found' });
+        }
+    
+        const hackathons = await HackathonEvent.find({ organizer: organizer.id });
+    
+        res.status(200).json({
+          organizerId: organizer._id,
+          organizerName: organizer.name,
+          hackathons,
+        });
+      } catch (error) {
+        res.status(500).json({ message: 'Error fetching hackathons', error: error.message });
+      }
 }
 
 module.exports == {
     listParticipantController,
-    deleteHackathonController
+    deleteHackathonController,
+    listHostedEventContoller
 }
