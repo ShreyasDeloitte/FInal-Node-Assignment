@@ -1,3 +1,4 @@
+const { Company } = require("../model/companySchema");
 const { HackathonEvent } = require("../model/hackatonEventSchema");
 
 const addHackathonEventDao = async (req) => {
@@ -15,9 +16,14 @@ const addHackathonEventDao = async (req) => {
       registrationDeadline,
       maxParticipants,
       status,
-      experience
+      experience,
+      companyId
     } = req.body;
-    console.log(hackathonId,title,description,startDate,endDate,organizer,participants,website,registrationOpen,registrationDeadline,maxParticipants,status)
+    const company = await Company.findOne({companyId});
+    if (!company) {
+      return res.status(404).json({ error: 'Employee not found' });
+    }
+
     const newHackathonEvent = new HackathonEvent({
       hackathonId,
       title,
@@ -33,9 +39,8 @@ const addHackathonEventDao = async (req) => {
       status,
       experience
     });
-
+    newHackathonEvent.organizer.push(company._id);
     const savedHackathonEvent = await newHackathonEvent.save();
-    console.log("Hi");
     return savedHackathonEvent;
    
   } catch (error) {

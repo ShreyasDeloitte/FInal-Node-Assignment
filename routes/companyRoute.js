@@ -2,30 +2,30 @@ const express = require("express");
 const {
   listParticipantController,
   deleteHackathonController,
-  hostedEventListContoller
+  hostedEventListContoller,
+  modifyHostedEventController
 } = require("../controller/companyController");
 const companyRoute = express.Router();
 const { verifyAuthentication } = require("../utilities/verifyAuthentication");
 companyRoute.get(
-  "/listParticipant/company:companyId:/hackathon:hackathonId",
+  "/listParticipant/companyId/:companyId/hackathonId/:hackathonId",
   (req, res) => {
     listParticipantController(req, res);
   }
 );
 
 companyRoute.delete(
-  "/deleteHackathon/:hackathonId",
-  verifyAuthentication,
+  "/deleteHackathon/companyId/:companyId/hackathonId/:hackathonId",
   (req, res) => {
     deleteHackathonController(req, res);
   }
 );
 
-companyRoute.get("/listHostedEvent/:companyId", (req, res) => {
+companyRoute.get("/listHostedEvent/companyId/:companyId", (req, res) => {
     hostedEventListContoller(req, res);
 });
 
-companyRoute.put("/modifyHackathon/:companyId:/hackathonId", (req, res) => {
+companyRoute.put("/modifyHackathon/companyId/:companyId/hackathonId/:hackathonId", (req, res) => {
   modifyHostedEventController(req, res);
 });
 module.exports = { companyRoute };

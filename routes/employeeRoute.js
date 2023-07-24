@@ -6,7 +6,7 @@ employeeRoute.post("/enroll", (req, res) => {
   registerHackathonController(req, res);
 });
 
-employeeRoute.post("/registeredhackathons/:employeeId", (req, res) => {
+employeeRoute.get("/registeredhackathons/:employeeId", (req, res) => {
   registeredHackathonController(req, res);
 });
 module.exports = { employeeRoute };

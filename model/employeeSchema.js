@@ -10,6 +10,7 @@ const EmployeeSchema = new Schema({
   skills: { type: Array, required: true },
   designation: { type: String, required: true },
   registeredHackathons: [{ type: mongoose.Schema.Types.ObjectId, ref: 'HackathonEvent' }],
+  experience:{ type: Number,required: true},
 });
 
 const Employee = mongoose.model("Employee", EmployeeSchema);
