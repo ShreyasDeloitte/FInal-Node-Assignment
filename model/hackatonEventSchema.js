@@ -13,6 +13,7 @@ const hackathonEventSchema = new mongoose.Schema({
   registrationDeadline: { type: Date },
   maxParticipants: { type: Number },
   status:{ type: String},
+  experience:{type: Number}
   // You can add more attributes as per your application's requirements
 });
 

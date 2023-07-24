@@ -10,11 +10,31 @@ const registerHackathonController = async(req, res) => {
         if (!employee) {
           return res.status(404).json({ error: 'Employee not found' });
         }
+
         //Find the hackathon by ID
         const hackathon = await HackathonEvent.findOne({hackathonId});
         if (!hackathon) {
           return res.status(404).json({ error: 'Hackathon not found' });
         }
+        // Check whether max particpant is execeeded or not
+        const maxParticipantCount = hackathon.participants.length();
+        if(maxParticipantCount>=hackathon.maxParticipants){
+          return res.status(404).json({error:'Max Participant exceeded'});
+        }
+
+        // Check whether year of experience is exceeded
+        const experience = hackathon.experience;
+        if(experience<=1){
+          return res.status(404).json({error:'Minimum of 1 year experience expected'});
+        }
+
+      // Check whether register date is passed
+      const startDate = hackathon.startDate
+      if(startDate){
+        return res.status(404).json({error:'register date is passed'});
+      }
+
+
         // Check if the employee is already registered for the hackathon
         if (employee.registeredHackathons.includes(hackathonId)) {
           return res.status(400).json({ error: 'Employee is already registered for this hackathon' });

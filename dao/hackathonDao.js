@@ -15,6 +15,7 @@ const addHackathonEventDao = async (req) => {
       registrationDeadline,
       maxParticipants,
       status,
+      experience
     } = req.body;
     console.log(hackathonId,title,description,startDate,endDate,organizer,participants,website,registrationOpen,registrationDeadline,maxParticipants,status)
     const newHackathonEvent = new HackathonEvent({
@@ -30,6 +31,7 @@ const addHackathonEventDao = async (req) => {
       registrationDeadline,
       maxParticipants,
       status,
+      experience
     });
 
     const savedHackathonEvent = await newHackathonEvent.save();
