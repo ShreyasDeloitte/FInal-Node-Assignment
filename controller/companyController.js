@@ -87,9 +87,47 @@ const listHostedEventContoller = async(req,res) =>{
         res.status(500).json({ message: 'Error fetching hackathons', error: error.message });
       }
 }
+ const modifyHostedEventController = async(req,res)=>{
+  try {
+    const companyId = req.params.companyId;
+    const hackathonId = req.params.hackathonId;
 
+    const company = await Company.findById(companyId);
+
+    if (!company) {
+      return res.status(404).json({ message: 'Company not found' });
+    }
+
+    const hackathon = await HackathonEvent.findById(hackathonId);
+
+    if (!hackathon) {
+      return res.status(404).json({ message: 'Hackathon not found' });
+    }
+
+    const organizerId = company.id;
+    if (hackathon.organizer.toString() !== organizerId || company._id.toString() !== hackathon.organizer.toString()) {
+      return res.status(403).json({ message: 'Unauthorized. You are not the organizer of this Hackathon or not associated with the specified Company.' });
+    }
+
+    const currentDate = new Date();
+    if (currentDate >= hackathon.registrationOpen) {
+      return res.status(400).json({ message: 'Registration has already started. Cannot modify the Hackathon.' });
+    }
+
+    const updatedHackathon = await HackathonEvent.findByIdAndUpdate(
+      hackathonId,
+      { $set: req.body },
+      { new: true } // To get the updated document as the result
+    );
+
+    res.status(200).json({ message: 'Hackathon information updated successfully', hackathon: updatedHackathon });
+  } catch (error) {
+    res.status(500).json({ message: 'Error updating Hackathon information', error: error.message });
+  }
+ }
 module.exports == {
     listParticipantController,
     deleteHackathonController,
-    listHostedEventContoller
+    listHostedEventContoller,
+    modifyHostedEventController
 }

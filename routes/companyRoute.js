@@ -14,4 +14,7 @@ companyRoute.get("/listHostedEvent/:companyId",(req,res)=>{
     listHostedEventContoller(req,res);
 })
 
+companyRoute.put("/modifyHackathon/:companyId:/hackathonId",(req,res)=>{
+    modifyHostedEventController(req,res);
+})
 module.exports = { companyRoute };
