@@ -15,6 +15,7 @@ const hackathonEventSchema = new mongoose.Schema({
   status:{ type: String},
   experience:{type: Number}
   // You can add more attributes as per your application's requirements
+  
 });
 
 // Create the HackathonEvent model
