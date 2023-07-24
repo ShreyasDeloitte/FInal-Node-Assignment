@@ -2,6 +2,7 @@ const express = require("express");
 const {
   listParticipantController,
   deleteHackathonController,
+  hostedEventListContoller
 } = require("../controller/companyController");
 const companyRoute = express.Router();
 const { verifyAuthentication } = require("../utilities/verifyAuthentication");
@@ -21,7 +22,7 @@ companyRoute.delete(
 );
 
 companyRoute.get("/listHostedEvent/:companyId", (req, res) => {
-  listHostedEventContoller(req, res);
+    hostedEventListContoller(req, res);
 });
 
 companyRoute.put("/modifyHackathon/:companyId:/hackathonId", (req, res) => {

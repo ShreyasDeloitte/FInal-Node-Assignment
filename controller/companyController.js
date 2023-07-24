@@ -65,8 +65,7 @@ const deleteHackathonController = async(req,res) =>{
 
 }
 
-
-const listHostedEventContoller = async(req,res) =>{
+const hostedEventListContoller = async(req,res) =>{
     try {
         const organizerId = req.params.companyId;
     
@@ -87,6 +86,7 @@ const listHostedEventContoller = async(req,res) =>{
         res.status(500).json({ message: 'Error fetching hackathons', error: error.message });
       }
 }
+
  const modifyHostedEventController = async(req,res)=>{
   try {
     const companyId = req.params.companyId;
@@ -125,9 +125,9 @@ const listHostedEventContoller = async(req,res) =>{
     res.status(500).json({ message: 'Error updating Hackathon information', error: error.message });
   }
  }
-module.exports == {
+module.exports = {
     listParticipantController,
     deleteHackathonController,
-    listHostedEventContoller,
+    hostedEventListContoller,
     modifyHostedEventController
 }
