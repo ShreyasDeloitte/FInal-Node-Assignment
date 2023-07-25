@@ -17,11 +17,11 @@ const addHackathonEventDao = async (req) => {
       maxParticipants,
       status,
       experience,
-      companyId
+      companyId,
     } = req.body;
-    const company = await Company.findOne({companyId});
+    const company = await Company.findOne({ companyId });
     if (!company) {
-      return res.status(404).json({ error: 'Employee not found' });
+      return res.status(404).json({ error: "Employee not found" });
     }
 
     const newHackathonEvent = new HackathonEvent({
@@ -37,12 +37,11 @@ const addHackathonEventDao = async (req) => {
       registrationDeadline,
       maxParticipants,
       status,
-      experience
+      experience,
     });
     newHackathonEvent.organizer.push(company._id);
     const savedHackathonEvent = await newHackathonEvent.save();
     return savedHackathonEvent;
-   
   } catch (error) {
     throw new Error("Error while adding hackathon event: " + error.message);
   }

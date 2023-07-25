@@ -1,20 +1,20 @@
 const { Employee } = require("../model/employeeSchema");
 const { HackathonEvent } = require("../model/hackatonEventSchema");
-const { registerHackathonEventService } = require("../service/employeeService");
 
 const registerHackathonController = async (req, res) => {
   try {
     const { employeeId, hackathonId } = req.body;
+
     const employee = await Employee.findOne({ employeeId });
     if (!employee) {
       return res.status(404).json({ error: "Employee not found" });
     }
 
-    //Find the hackathon by ID
     const hackathon = await HackathonEvent.findOne({ hackathonId });
     if (!hackathon) {
       return res.status(404).json({ error: "Hackathon not found" });
     }
+
     // Check whether max particpant is execeeded or not
     const maxParticipantCount = hackathon.participants.length;
     if (maxParticipantCount >= hackathon.maxParticipants) {
@@ -22,7 +22,6 @@ const registerHackathonController = async (req, res) => {
     }
 
     // Check whether year of experience is exceeded
-
     if (employee.experience <= hackathon.experience) {
       return res.status(404).json({ error: "work experience expected" });
     }
@@ -37,6 +36,7 @@ const registerHackathonController = async (req, res) => {
     const minutes = String(currentDate.getUTCMinutes()).padStart(2, "0");
     const seconds = String(currentDate.getUTCSeconds()).padStart(2, "0");
     const currentDateTimeString = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.000+00:00`;
+
     if (startDate >= currentDateTimeString) {
       return res.status(404).json({ error: "register date is passed" });
     }
@@ -67,16 +67,15 @@ const registerHackathonController = async (req, res) => {
     // If there are no conflicts, register the employee for the new hackathon
     employee.registeredHackathons.push(hackathon.id);
     await employee.save();
+
     hackathon.participants.push(employee.id);
     hackathon.maxParticipants = hackathon.maxParticipants - 1;
     hackathon
       .save()
       .then(() => {
-        res
-          .status(200)
-          .json({
-            message: "Employee successfully registered to Hackathon Event",
-          });
+        res.status(200).json({
+          message: "Employee successfully registered to Hackathon Event",
+        });
       })
       .catch(() => {
         res.status(400).json({ message: "Hackathon registration failed" });
@@ -92,13 +91,13 @@ const registeredHackathonController = async (req, res) => {
     const employeeId = req.params.employeeId;
 
     const employee = await Employee.findOne({ employeeId });
-
     if (!employee) {
       return res.status(404).json({ message: "Employee not found" });
     }
 
-    const hackathons = await HackathonEvent.find({ participants: employee._id });
-
+    const hackathons = await HackathonEvent.find({
+      participants: employee._id,
+    });
     res.status(200).json({
       employeeId: employee.employeeId,
       fullName: employee.fullName,

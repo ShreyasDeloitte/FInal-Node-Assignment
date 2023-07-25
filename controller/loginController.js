@@ -1,12 +1,9 @@
 const { jwtSign } = require("../utilities/jwtSign");
-const { Employee } = require("../model/employeeSchema");
-const { Company } = require("../model/companySchema");
 const { verifyPassword } = require("../utilities/passwordEncryption");
 const {
   employeeloginService,
   companyloginService,
 } = require("../service/loginService");
-const e = require("express");
 
 const loginController = async (req, res) => {
   const { password, userRole } = req.body;

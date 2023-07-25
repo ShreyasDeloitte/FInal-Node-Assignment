@@ -2,33 +2,30 @@ const { HackathonEvent } = require("../model/hackatonEventSchema");
 const { addHackathonEventService } = require("../service/hackathonService");
 
 const addNewHackatonController = (req, res) => {
-    const savedHackathonEvent = addHackathonEventService(req);
-    console.log(savedHackathonEvent,"log saved Hackathon");
-    savedHackathonEvent
+  const savedHackathonEvent = addHackathonEventService(req);
+  savedHackathonEvent
     .then(() => {
-        res.status(200).json({ message: "Hackathon event added successfully" });
-      })
+      res.status(200).json({ message: "Hackathon event added successfully" });
+    })
     .catch(() => {
-        res.status(400).json({ message: "Hackathon event hosting failed" });
-      });
-  };
+      res.status(400).json({ message: "Hackathon event hosting failed" });
+    });
+};
 
-const statusListHackatonController = async(req,res) =>{
+const statusListHackatonController = async (req, res) => {
   try {
     const { type, page, limit } = req.query;
-
     const currentPage = parseInt(page) || 1;
     const itemsPerPage = parseInt(limit) || 10;
-
     const currentDate = new Date();
-
     const filter = {};
-    if (type === 'active') {
+
+    if (type === "active") {
       filter.startDate = { $lte: currentDate };
       filter.endDate = { $gte: currentDate };
-    } else if (type === 'past') {
+    } else if (type === "past") {
       filter.endDate = { $lt: currentDate };
-    } else if (type === 'upcoming') {
+    } else if (type === "upcoming") {
       filter.startDate = { $gt: currentDate };
     }
 
@@ -46,8 +43,9 @@ const statusListHackatonController = async(req,res) =>{
       hackathons,
     });
   } catch (error) {
-    res.status(500).json({ message: 'Error fetching hackathons', error: error.message });
+    res
+      .status(500)
+      .json({ message: "Error fetching hackathons", error: error.message });
   }
-
-}
-module.exports = { addNewHackatonController,statusListHackatonController };
+};
+module.exports = { addNewHackatonController, statusListHackatonController };

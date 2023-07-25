@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const hackathonEventSchema = new mongoose.Schema({
   hackathonId: { type: Number, required: true, unique: true },
@@ -6,19 +6,17 @@ const hackathonEventSchema = new mongoose.Schema({
   description: { type: String, required: true },
   startDate: { type: Date, required: true },
   endDate: { type: Date, required: true },
-  organizer: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Company' }], // Assuming you have a Company schema for organizers
-  participants: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Employee' }], // Assuming you have a User schema for participants
+  organizer: [{ type: mongoose.Schema.Types.ObjectId, ref: "Company" }],
+  participants: [{ type: mongoose.Schema.Types.ObjectId, ref: "Employee" }],
   website: { type: String },
   registrationOpen: { type: Boolean, default: true },
   registrationDeadline: { type: Date },
   maxParticipants: { type: Number },
-  status:{ type: String},
-  experience:{type: Number}
-  // You can add more attributes as per your application's requirements
-  
+  status: { type: String },
+  experience: { type: Number },
 });
 
 // Create the HackathonEvent model
-const HackathonEvent = mongoose.model('HackathonEvent', hackathonEventSchema);
+const HackathonEvent = mongoose.model("HackathonEvent", hackathonEventSchema);
 
-module.exports = {HackathonEvent};
+module.exports = { HackathonEvent };

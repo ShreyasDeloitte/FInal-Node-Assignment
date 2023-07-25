@@ -7,6 +7,7 @@ const {
 } = require("../controller/companyController");
 const companyRoute = express.Router();
 const { verifyAuthentication } = require("../utilities/verifyAuthentication");
+
 companyRoute.get(
   "/listParticipant/companyId/:companyId/hackathonId/:hackathonId",
   (req, res) => {
@@ -15,7 +16,7 @@ companyRoute.get(
 );
 
 companyRoute.delete(
-  "/deleteHackathon/companyId/:companyId/hackathonId/:hackathonId",
+  "/deleteHackathon/companyId/:companyId/hackathonId/:hackathonId",verifyAuthentication,
   (req, res) => {
     deleteHackathonController(req, res);
   }
@@ -28,4 +29,5 @@ companyRoute.get("/listHostedEvent/companyId/:companyId", (req, res) => {
 companyRoute.put("/modifyHackathon/companyId/:companyId/hackathonId/:hackathonId", (req, res) => {
   modifyHostedEventController(req, res);
 });
+
 module.exports = { companyRoute };

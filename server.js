@@ -24,9 +24,9 @@ app.get("/", (req, res) => {
 
 app.use("/signup", signUpRoute);
 app.use("/login", loginRoute);
-app.use("/hackathon",hackathonRoute);
-app.use("/employee",employeeRoute);
-app.use("/company",companyRoute)
+app.use("/hackathon", hackathonRoute);
+app.use("/employee", employeeRoute);
+app.use("/company", companyRoute);
 
 app.listen(PORT, (req, res) => {
   console.log(`Server listening to Port ${PORT}`);

@@ -1,9 +1,7 @@
 const { HackathonEvent } = require("../model/hackatonEventSchema");
 
-const registerHackathonDao = async (req, res, employee) => {
-  // Check for scheduling conflicts with existing hackathons
-  
-  return employee;
+const registerHackathonDao = async (req, res) => {
+  return 0;
 };
 
 module.exports = { registerHackathonDao };

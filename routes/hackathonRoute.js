@@ -3,6 +3,7 @@ const {
   addNewHackatonController,
   statusListHackatonController
 } = require("../controller/hackathonController");
+
 const hackathonRoute = express.Router();
 
 hackathonRoute.post("/addEvent", (req, res) => {

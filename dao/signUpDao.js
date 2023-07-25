@@ -4,7 +4,15 @@ const { encryptPassword } = require("../utilities/passwordEncryption");
 
 const employeeSignUpDao = async (req) => {
   try {
-    let { employeeId, email, fullName, password, skills, designation,experience } = req.body;
+    let {
+      employeeId,
+      email,
+      fullName,
+      password,
+      skills,
+      designation,
+      experience,
+    } = req.body;
     const hashedPassword = await encryptPassword(password);
     const newEmployee = new Employee({
       employeeId,
@@ -13,7 +21,7 @@ const employeeSignUpDao = async (req) => {
       password: hashedPassword,
       skills,
       designation,
-      experience
+      experience,
     });
     const savedEmployee = await newEmployee.save();
     return savedEmployee;
